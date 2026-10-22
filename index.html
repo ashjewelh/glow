@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F28076">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GLOW">
+<link rel="manifest" href="manifest.json">
+<title>GLOW |Fitness Journey</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap');
+:root {
+  --coral:#F28076;
+  --pink:#FFB6AF;
+  --peach:#FAE0C7;
+  --orange:#FBC193;
+  --mint:#4EB09B;
+  --ink:#352E32;
+  --muted:#8C8184;
+  --paper:#FFF9F6;
+  --white:#FFFFFF;
+  --line:#F1E5E0;
+  --shadow:0 8px 28px #51352A0D;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family: 'Nunito Sans', sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:1050px;margin:auto;padding:20px 18px 100px}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #A62F23, #F28076);
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 3px 8px #A62F2320;
+}
+
+.logo-word {
+  display: flex;
+  gap: 0;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.logo-coral {
+  color: #F28076;
+}
+.brand{font-size:29px;font-weight:900;letter-spacing:3px;color:var(--coral)}
+.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:0}
+.avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--peach);
+  display: grid;
+  place-items: center;
+  border: 2px solid white;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.avatar:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+}
+h1{font-size:27px;margin:0 0 6px}
+h2{font-size:19px;margin:0 0 14px}
+h3{font-size:15px;margin:0 0 8px}
+p{line-height:1.5}
+.muted{color:var(--muted);font-size:13px}
+.small{font-size:12px;color:var(--muted)}
+.page{display:none}
+.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:21px;padding:18px;box-shadow:var(--shadow);margin-bottom:15px;min-width:0}
+.hero{background:linear-gradient(130deg,#F28076,#FFB6AF);color:white;padding:25px;border-radius:25px;margin-bottom:17px}
+.hero p{margin:6px 0}
+.hero .big{font-size:38px;font-weight:800}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:700;background:var(--coral);color:white}
+.btn.secondary{background:var(--peach);color:var(--ink)}
+.btn.mint{background:var(--mint)}
+.btn.light{background:#FFF0EC;color:var(--coral)}
+.btn.danger{background:#FFF0F0;color:#BD5656}
+.btn.smallbtn{padding:7px 10px;font-size:12px}
+input,select{width:100%;min-width:0;border:1px solid var(--line);background:#FFFCFA;padding:11px;border-radius:11px;color:var(--ink)}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+.field{margin-bottom:12px;min-width:0}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.progress{height:9px;border-radius:20px;background:#F5EAE5;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;width:0;background:var(--mint);border-radius:20px;transition:width .2s}
+.stat{background:#FFF7F1;border-radius:16px;padding:14px}
+.stat strong{font-size:24px;display:block;margin:4px 0}
+.pill{display:inline-block;background:#FFF0EC;color:#B85E55;padding:6px 10px;border-radius:30px;font-size:11px;font-weight:700}
+.exercise,.meal{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.exercise:last-child,.meal:last-child{border-bottom:0}
+.exercise input[type=checkbox]{width:20px;height:20px;accent-color:var(--mint);flex-shrink:0}
+.exercise-main{flex:1;min-width:0}
+.exercise-main.done .exercise-name{text-decoration:line-through;color:var(--muted)}
+.exercise-name{font-weight:700;overflow-wrap:anywhere}
+.exercise-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.actions{display:flex;gap:5px;flex-shrink:0}
+.actions button{border:0;background:#FFF1EC;color:#A75D53;border-radius:9px;padding:7px;font-size:12px}
+.tabs{display:flex;gap:7px;overflow-x:auto;margin-bottom:18px;padding-bottom:4px}
+.tab{flex:1;min-width:max-content;border:0;background:white;border-radius:13px;padding:11px 13px;color:var(--muted);font-weight:700}
+.tab.active{background:var(--coral);color:white}
+.daylist{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.day{border:1px solid var(--line);background:#FFFCFA;border-radius:12px;padding:9px 2px;text-align:center;font-size:11px}
+.day strong{display:block;font-size:14px;margin:6px 0}
+.day.done{background:#E4F5EF;border-color:var(--mint)}
+.day.today{outline:2px solid var(--coral)}
+.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.calcell{min-height:52px;background:#FFFCFA;border:1px solid var(--line);border-radius:10px;text-align:center;padding:7px 2px;font-size:12px}
+.calcell.done{background:#E4F5EF;border-color:var(--mint)}
+.calcell.today{outline:2px solid var(--coral)}
+.calcell .mark{font-size:10px;color:var(--mint);display:block;margin-top:4px}
+.empty{color:var(--muted);font-size:13px;padding:10px 0}
+nav{position:fixed;bottom:0;left:0;right:0;background:#FFFFFFF2;backdrop-filter:blur(15px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:3px;padding:10px max(5px,env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));z-index:10}
+nav button{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:650;padding:7px 10px;border-radius:12px;flex:1;max-width:140px}
+nav button span{display:block;font-size:19px;margin-bottom:3px}
+nav button.active{background:#FFF0EC;color:#C65F55}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+@media(min-width:760px){
+.app{padding-top:30px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+nav{left:50%;transform:translateX(-50%);width:min(650px,95%);bottom:12px;border:1px solid var(--line);border-radius:20px;padding:8px}
+}
+@media(max-width:480px){
+.app{padding:14px 12px 100px}
+h1{font-size:24px}
+.card{padding:15px;border-radius:18px}
+.hero{padding:21px}
+.grid{gap:10px}
+.stat{padding:11px}
+.stat strong{font-size:21px}
+.formgrid{grid-template-columns:1fr 1fr}
+.actions button{padding:7px 6px}
+nav button{padding:7px 4px;font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="app-header">
+  <div class="brand-logo">
+    <div class="logo-icon">
+      <span>✦</span>
+    </div>
+    <div class="logo-word">
+      <span>GL</span><span class="logo-coral">OW</span>
+    </div>
+  </div>
+  <button
+  type="button"
+  id="headerAvatar"
+  class="avatar"
+  onclick="showPage('profile')"
+  aria-label="Go to profile"
+  title="Open profile"
+>
+  🌸
+</button>
+</header>
+
+<section id="home" class="page active">
+  <div class="hero">
+    <div id="greeting">Hello, beautiful ✨</div>
+    <h1>Today is your day.</h1>
+    <p id="todayLabel"></p>
+    <div class="big" id="heroStreak">0 days 🔥</div>
+    <p class="small" style="color:#fff">Keep showing up for yourself.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="muted">Calories remaining</div>
+      <div class="row"><strong id="homeRemaining" style="font-size:28px">0</strong><span>🥗</span></div>
+      <div class="progress"><span id="homeCalBar"></span></div>
+      <div class="small" id="homeCalText"></div>
+      <button class="btn light smallbtn" onclick="showPage('calories')">Log a meal</button>
+    </div>
+    <div class="card">
+      <div class="muted">Workout progress</div>
+      <div class="row"><strong id="homeWorkoutCount" style="font-size:28px">0/0</strong><span>💪</span></div>
+      <div class="progress"><span id="homeWorkoutBar"></span></div>
+      <div class="small">Exercises completed today</div>
+      <button class="btn light smallbtn" onclick="showPage('workouts')">View workout</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="row"><h2>Today's workout</h2><span class="pill" id="todayType"></span></div>
+    <p class="muted" id="todayDescription"></p>
+    <div id="homeExercises"></div>
+    <button class="btn" onclick="showPage('workouts')">Open workout plan →</button>
+  </div>
+  <div class="card">
+    <h2>Your week at a glance</h2>
+    <div class="daylist" id="weekStrip"></div>
+  </div>
+</section>
+
+<section id="workouts" class="page">
+  <h1>Move with purpose 💪</h1>S
+  <p class="muted">Build consistency, one workout at a time.</p>
+  <div class="card">
+    <div class="row"><h2>Workout day</h2><input id="workoutDate" type="date" style="width:auto" aria-label="Workout date"></div>
+    <div class="field"><label for="dayTitle">Workout title</label><input id="dayTitle" placeholder="e.g. Back & Core"></div>
+    <div id="exerciseList"></div>
+    <hr>
+    <h3 id="exerciseFormTitle">Add an exercise</h3>
+    
+<div class="field">
+  <label for="savedExercise">Choose a saved exercise</label>
+  <select id="savedExercise">
+    <option value="">Choose an exercise...</option>
+  </select>
+</div>
+
+<button
+  type="button"
+  class="btn danger smallbtn"
+  id="deleteLibraryBtn"
+  style="margin-bottom:12px"
+>
+  Remove selected exercise
+</button>
+
+    <form id="exerciseForm">
+      <div class="field"><label for="exerciseName">Exercise name</label><input id="exerciseName" required maxlength="70" placeholder="e.g. Hip thrust"></div>
+      <div class="formgrid">
+        <div class="field"><label for="exerciseReps">Reps / duration</label><input id="exerciseReps" required maxlength="30" placeholder="12 reps"></div>
+        <div class="field"><label for="exerciseSets">Sets</label><input id="exerciseSets" type="number" min="1" max="30" value="3" required></div>
+      </div>
+      <input id="editExerciseId" type="hidden">
+      <div class="row">
+        <button class="btn" type="submit" id="saveExerciseBtn">+ Add exercise</button>
+        <button class="btn secondary" type="button" id="cancelEdit" hidden onclick="cancelExerciseEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="calories" class="page">
+  <h1>Fuel your body 🥑</h1>
+  <p class="muted">Nourishment is part of your journey, too.</p>
+  <div class="card">
+    <div class="row"><h2>Daily calories</h2><span>🍑</span></div>
+    <div class="hero" style="margin:0;background:linear-gradient(130deg,#FBC193,#FAE0C7);color:var(--ink)">
+      <div class="muted">Calories remaining</div>
+      <div class="big" id="calRemaining">0</div>
+      <p id="calSummary"></p>
+      <div class="progress"><span id="calBar" style="background:var(--mint)"></span></div>
+      <div class="small">Your daily target: <strong id="calTargetText">2000</strong> kcal</div>
+    </div>
+    <form id="mealForm" style="margin-top:18px">
+      <h3>Log a meal</h3>
+      <div class="field"><label for="mealName">Food or meal</label><input id="mealName" required maxlength="80" placeholder="e.g. Chicken and rice"></div>
+      <div class="formgrid">
+        <div class="field"><label for="mealCalories">Calories (kcal)</label><input id="mealCalories" type="number" min="0" max="20000" required placeholder="450"></div>
+        <div class="field"><label for="mealType">Meal type</label><select id="mealType"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
+      </div>
+      <button class="btn" type="submit">+ Add meal</button>
+    </form>
+  </div>
+  <div class="card">
+    <div class="row"><h2>Today's meals</h2><span class="pill" id="mealTotal">0 kcal</span></div>
+    <div id="mealList"></div>
+  </div>
+</section>
+
+<section id="progress" class="page">
+  <h1>Your progress 🌱</h1>
+  <p class="muted">Every small step counts.</p>
+  <div class="card">
+    <div class="row">
+      <h2>Workout calendar</h2>
+      <select id="calendarMonth" style="width:auto"></select>
+    </div>
+    <div class="daylist" style="margin-bottom:6px">
+      <div class="small" style="text-align:center">Sun</div><div class="small" style="text-align:center">Mon</div><div class="small" style="text-align:center">Tue</div><div class="small" style="text-align:center">Wed</div><div class="small" style="text-align:center">Thu</div><div class="small" style="text-align:center">Fri</div><div class="small" style="text-align:center">Sat</div>
+    </div>
+    <div class="calendar" id="monthCalendar"></div>
+    <p class="small">Mint days indicate a fully completed workout.</p>
+  </div>
+  <div class="card">
+    <div class="row"><h2>Weekly summary</h2><span class="pill" id="weeklyRange"></span></div>
+    <div class="grid three">
+      <div class="stat"><div class="small">Completed days</div><strong id="weeklyDays">0</strong></div>
+      <div class="stat"><div class="small">Exercises done</div><strong id="weeklyExercises">0</strong></div>
+      <div class="stat"><div class="small">Meals logged</div><strong id="weeklyMeals">0</strong></div>
+    </div>
+    <hr>
+    <h3>Last 7 days</h3>
+    <div id="weeklyDetails"></div>
+  </div>
+  <div class="card">
+    <h2>Monthly summary</h2>
+    <div class="grid">
+      <div class="stat"><div class="small">Workout days</div><strong id="monthlyDays">0</strong></div>
+      <div class="stat"><div class="small">Exercises completed</div><strong id="monthlyExercises">0</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="profile" class="page">
+  <h1>Your space 💗</h1>
+  <p class="muted">Make GLOW yours.</p>
+  <div class="card">
+    <h2>Personal profile</h2>
+    <form id="profileForm">
+      <div class="field"><label for="profileName">Name</label><input id="profileName" maxlength="70" placeholder="Your name"></div>
+      <div class="formgrid">
+        <div class="field"><label for="profileAge">Age</label><input id="profileAge" type="number" min="1" max="120"></div>
+        <div class="field"><label for="profileHeight">Height (cm)</label><input id="profileHeight" type="number" min="1" max="300"></div>
+        <div class="field"><label for="profileWeight">Weight (kg)</label><input id="profileWeight" type="number" min="1" max="700" step="0.1"></div>
+        <div class="field"><label for="profileGoal">Daily calorie target</label><input id="profileGoal" type="number" min="1" max="20000" required></div>
+      </div>
+      <div class="field"><label for="profilePhoto">Profile photo (optional)</label><input id="profilePhoto" type="file" accept="image/*"></div>
+      <button class="btn" type="submit">Save profile</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Your data</h2>
+    <p class="muted">Your records are stored in this browser on this device.</p>
+    <button class="btn secondary" onclick="exportData()">Export backup (JSON)</button>
+    <hr>
+    <button class="btn danger" onclick="clearAllData()">Delete all app data</button>
+  </div>
+</section>
+</div>
+
+<nav id="bottomNav">
+  <button class="active" data-page="home"><span>⌂</span>Home</button>
+  <button data-page="workouts"><span>♡</span>Workouts</button>
+  <button data-page="calories"><span>◉</span>Calories</button>
+  <button data-page="progress"><span>▦</span>Progress</button>
+  <button data-page="profile"><span>☻</span>Profile</button>
+</nav>
+
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "glow_fitness_v1";
+const LIBRARY_KEY = "glow_exercise_library";
+const $ = id => document.getElementById(id);
+
+const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SHORT_DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+const DEFAULT_ROUTINE = [
+  {title:"Rest Day",type:"Rest",items:[]},
+  {title:"Back & Core",type:"Back & Core",items:[
+    ["Cat-Cow Stretch","10 reps",2],["Bird Dog","12 reps per side",3],
+    ["Dead Bug","12 reps",3],["Plank","30 seconds",3]
+  ]},
+  {title:"Glutes Day 1",type:"Glutes",items:[
+    ["Glute Bridge","15 reps",3],["Hip Thrust","12 reps",3],
+    ["Romanian Deadlift","12 reps",3],["Donkey Kicks","15 reps per side",3]
+  ]},
+  {title:"Back & Core",type:"Back & Core",items:[
+    ["Arm Circles","30 seconds",2],["Superman Hold","12 reps",3],
+    ["Bicycle Crunches","20 reps",3],["Side Plank","20 seconds per side",3]
+  ]},
+  {title:"Glutes Day 2",type:"Glutes",items:[
+    ["Bodyweight Squats","15 reps",3],["Hip Thrust","12 reps",3],
+    ["Fire Hydrants","15 reps per side",3],["Glute Bridge Hold","30 seconds",3]
+  ]},
+  {title:"Back & Core",type:"Back & Core",items:[
+    ["Wall Angels","12 reps",2],["Bird Dog","12 reps per side",3],
+    ["Reverse Crunches","12 reps",3],["Plank","30 seconds",3]
+  ]},
+  {title:"Rest Day",type:"Rest",items:[]}
+];
+
+function localDate(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function parseDate(s) {
+  const [y,m,d] = s.split("-").map(Number);
+  return new Date(y,m-1,d,12);
+}
+
+function shiftDate(s, amount) {
+  const d = parseDate(s);
+  d.setDate(d.getDate()+amount);
+  return localDate(d);
+}
+
+function formatDate(s, options = {month:"short",day:"numeric"}) {
+  return parseDate(s).toLocaleDateString(undefined,options);
+}
+
+function makeId() {
+  return window.crypto && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function getExerciseLibrary() {
+  try {
+    const library = JSON.parse(localStorage.getItem(LIBRARY_KEY) || "[]");
+    return Array.isArray(library) ? library : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveExerciseLibrary(library) {
+  localStorage.setItem(LIBRARY_KEY,JSON.stringify(library));
+}
+
+function defaultState() {
+  const routine = {};
+  DEFAULT_ROUTINE.forEach((day,i)=>{
+    routine[i] = {
+      title:day.title,
+      type:day.type,
+      items:day.items.map(([name,reps,sets])=>({
+        id:makeId(),name,reps,sets:Number(sets)
+      }))
+    };
+  });
+
+  return {
+    profile:{name:"",age:"",height:"",weight:"",goal:2000,photo:""},
+    routine,
+    logs:{},
+    meals:{}
+  };
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return defaultState();
+
+    const s = JSON.parse(saved);
+    const fresh = defaultState();
+
+    return {
+      ...fresh,
+      ...s,
+      profile:{...fresh.profile,...(s.profile || {})},
+      routine:{...fresh.routine,...(s.routine || {})},
+      logs:s.logs || {},
+      meals:s.meals || {}
+    };
+  } catch(e) {
+    console.error("Unable to load GLOW data",e);
+    return defaultState();
+  }
+}
+
+let state = loadState();
+let selectedDate = localDate();
+let calendarMonth = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,"0")}`;
+let photoCandidate = null;
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+    return true;
+  } catch(e) {
+    alert("GLOW couldn't save this change. Browser storage may be full. Try choosing a smaller profile photo.");
+    console.error(e);
+    return false;
+  }
+}
+
+function dayIndex(date) {
+  return parseDate(date).getDay();
+}
+
+/* Each date has its own independent workout copy. */
+function plan(date = selectedDate) {
+  const weekday = dayIndex(date);
+  const template = state.routine[weekday] || {
+    title:"Workout",type:"Workout",items:[]
+  };
+
+  if (!state.logs[date]) {
+    state.logs[date] = {
+      checks:{},
+      workout:JSON.parse(JSON.stringify(template))
+    };
+  }
+
+  const log = state.logs[date];
+
+  if (!log.checks) log.checks = {};
+
+  if (!log.workout) {
+    log.workout = JSON.parse(JSON.stringify(template));
+  }
+
+  if (!Array.isArray(log.workout.items)) {
+    log.workout.items = [];
+  }
+
+  return log.workout;
+}
+
+function ensureLog(date) {
+  if (!state.logs[date]) {
+    state.logs[date] = {checks:{},workout:null};
+  }
+  if (!state.logs[date].checks) state.logs[date].checks = {};
+  return state.logs[date];
+}
+
+function completedCount(date) {
+  const workout = plan(date);
+  const log = ensureLog(date);
+  return workout.items.filter(x=>log.checks[x.id]).length;
+}
+
+function isComplete(date) {
+  const workout = plan(date);
+  return workout.items.length > 0 &&
+    completedCount(date) === workout.items.length;
+}
+
+function mealsFor(date) {
+  return state.meals[date] || [];
+}
+
+function calorieTotal(date) {
+  return mealsFor(date).reduce((sum,m)=>sum+Number(m.calories || 0),0);
+}
+
+function calorieGoal() {
+  return Math.max(1,Number(state.profile.goal) || 2000);
+}
+
+function showPage(name) {
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.toggle("active",p.id === name);
+  });
+
+  document.querySelectorAll("[data-page]").forEach(b=>{
+    b.classList.toggle("active",b.dataset.page === name);
+  });
+
+  if (name === "workouts") renderWorkouts();
+  if (name === "calories") renderCalories();
+  if (name === "progress") renderProgress();
+  if (name === "profile") renderProfile();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.addEventListener("click",()=>showPage(button.dataset.page));
+});
+
+
+function streak(today) {
+  let count = 0;
+  let date = today;
+
+  for (let i = 0; i < 366; i++) {
+    const workout = plan(date);
+
+    // Rest days do not break the streak.
+    if (workout.items.length === 0) {
+      date = shiftDate(date, -1);
+      continue;
+    }
+
+    // A workout day counts only when every exercise is complete.
+    if (isComplete(date)) {
+      count++;
+      date = shiftDate(date, -1);
+      continue;
+    }
+
+    // Allow today to still be in progress.
+    if (date === today) {
+      date = shiftDate(date, -1);
+      continue;
+    }
+
+    break;
+  }
+
+  return count;
+}
+
+
+function renderHome() {
+  const today = localDate();
+  const workout = plan(today);
+  const log = ensureLog(today);
+  const done = completedCount(today);
+  const total = calorieTotal(today);
+  const remaining = calorieGoal()-total;
+
+  $("greeting").textContent =
+    `Hello${state.profile.name ? ", "+state.profile.name : ""} ✨`;
+
+  $("todayLabel").textContent = parseDate(today).toLocaleDateString(
+    undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"}
+  );
+
+  $("todayType").textContent = workout.type || "Workout";
+  $("todayDescription").textContent = workout.items.length
+    ? `${workout.title} · ${done} of ${workout.items.length} exercises completed`
+    : "Rest and recovery are part of your progress.";
+
+  $("homeWorkoutCount").textContent = `${done}/${workout.items.length}`;
+  $("homeWorkoutBar").style.width =
+    (workout.items.length ? done/workout.items.length*100 : 0)+"%";
+
+  $("homeExercises").innerHTML = workout.items.length
+    ? workout.items.slice(0,4).map(x=>`
+      <div class="exercise">
+        <input type="checkbox"
+          ${log.checks[x.id] ? "checked" : ""}
+          data-home-check="${x.id}"
+          aria-label="Complete ${escapeHTML(x.name)}">
+        <div class="exercise-main ${log.checks[x.id] ? "done" : ""}">
+          <div class="exercise-name">${escapeHTML(x.name)}</div>
+          <div class="exercise-meta">${escapeHTML(x.reps)} · ${x.sets} sets</div>
+        </div>
+      </div>`).join("")
+    : `<div class="empty">Enjoy your rest day 🌿</div>`;
+
+  document.querySelectorAll("[data-home-check]").forEach(input=>{
+    input.addEventListener("change",()=>{
+      ensureLog(today).checks[input.dataset.homeCheck] = input.checked;
+      save();
+      renderAll();
+    });
+  });
+
+  $("homeRemaining").textContent = Math.max(0,remaining).toLocaleString();
+  $("homeCalBar").style.width =
+    Math.min(100,total/calorieGoal()*100)+"%";
+  $("homeCalText").textContent =
+    `${total.toLocaleString()} of ${calorieGoal().toLocaleString()} kcal`;
+
+  $("weekStrip").innerHTML = Array.from({length:7},(_,i)=>{
+    const date = shiftDate(today,i-dayIndex(today));
+    return `<div class="day ${isComplete(date) ? "done" : ""} ${date===today ? "today" : ""}">
+      ${SHORT_DAYS[dayIndex(date)]}
+      <strong>${parseDate(date).getDate()}</strong>
+      ${isComplete(date) ? "✓" : ""}
+    </div>`;
+  }).join("");
+
+  $("heroStreak").textContent =
+    `${streak(today)} day${streak(today)===1 ? "" : "s"} 🔥`;
+
+  $("headerAvatar").textContent = state.profile.photo ? "" : "🌸";
+  $("headerAvatar").style.backgroundImage = state.profile.photo
+    ? `url("${state.profile.photo}")`
+    : "none";
+  $("headerAvatar").style.backgroundSize = "cover";
+  $("headerAvatar").style.backgroundPosition = "center";
+}
+
+function renderWorkouts() {
+  $("workoutDate").value = selectedDate;
+
+  const workout = plan(selectedDate);
+  const log = ensureLog(selectedDate);
+
+  $("dayTitle").value = workout.title || "";
+
+  /* Refresh library dropdown without changing the workout. */
+  const library = getExerciseLibrary();
+  const previousSelection = $("savedExercise").value;
+
+  $("savedExercise").innerHTML =
+  '<option value="">Choose an exercise...</option>' +
+  library.map((exercise, index) =>
+    `<option value="${index}">${escapeHTML(exercise.name)}</option>`
+  ).join("");
+
+  if (previousSelection !== "" &&
+      Number(previousSelection) < library.length) {
+    $("savedExercise").value = previousSelection;
+  }
+
+  $("exerciseList").innerHTML = workout.items.length
+    ? workout.items.map(x=>`
+      <div class="exercise">
+        <input type="checkbox" data-check="${x.id}"
+          ${log.checks[x.id] ? "checked" : ""}
+          aria-label="Complete ${escapeHTML(x.name)}">
+        <div class="exercise-main ${log.checks[x.id] ? "done" : ""}">
+          <div class="exercise-name">${escapeHTML(x.name)}</div>
+          <div class="exercise-meta">${escapeHTML(x.reps)} · ${x.sets} set${x.sets===1 ? "" : "s"}</div>
+        </div>
+        <div class="actions">
+          <button type="button" data-edit="${x.id}">Edit</button>
+          <button type="button" data-delete="${x.id}">✕</button>
+        </div>
+      </div>`).join("")
+    : `<div class="empty">No exercises yet. Add one below, or enjoy your rest day.</div>`;
+
+  document.querySelectorAll("[data-check]").forEach(input=>{
+    input.addEventListener("change",()=>{
+      ensureLog(selectedDate).checks[input.dataset.check] = input.checked;
+      save();
+      renderAll();
+    });
+  });
+
+  document.querySelectorAll("[data-edit]").forEach(button=>{
+    button.addEventListener("click",()=>editExercise(button.dataset.edit));
+  });
+
+  document.querySelectorAll("[data-delete]").forEach(button=>{
+    button.addEventListener("click",()=>deleteExercise(button.dataset.delete));
+  });
+
+  document.querySelectorAll("[data-select-day]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const target = Number(button.dataset.selectDay);
+      selectedDate = shiftDate(selectedDate,target-dayIndex(selectedDate));
+      cancelExerciseEdit();
+      renderWorkouts();
+    });
+  });
+
+  const editing = Boolean($("editExerciseId").value);
+  $("exerciseFormTitle").textContent = editing ? "Edit exercise" : "Add an exercise";
+  $("saveExerciseBtn").textContent = editing ? "Save changes" : "+ Add exercise";
+  $("cancelEdit").hidden = !editing;
+}
+
+
+function deleteLibraryExercise(index) {
+  const library = getExerciseLibrary();
+  const exercise = library[index];
+
+  if (!exercise) return;
+
+  if (!confirm(`Remove "${exercise.name}" from your Exercise Library?`)) {
+    return;
+  }
+
+  library.splice(index, 1);
+  saveExerciseLibrary(library);
+
+  $("savedExercise").value = "";
+  renderWorkouts();
+}
+
+$("deleteLibraryBtn").addEventListener("click", () => {
+  const value = $("savedExercise").value;
+
+  if (value === "") {
+    alert("Please select an exercise from the library first.");
+    return;
+  }
+
+  deleteLibraryExercise(Number(value));
+});
+
+
+$("savedExercise").addEventListener("change",()=>{
+  const library = getExerciseLibrary();
+  const value = $("savedExercise").value;
+  if (value === "") return;
+
+  const exercise = library[Number(value)];
+  if (!exercise) return;
+
+  $("exerciseName").value = exercise.name;
+  $("exerciseReps").value = exercise.reps;
+  $("exerciseSets").value = exercise.sets;
+});
+
+$("workoutDate").addEventListener("change",()=>{
+  if (!$("workoutDate").value) return;
+  selectedDate = $("workoutDate").value;
+  cancelExerciseEdit();
+  renderWorkouts();
+});
+
+
+function saveWorkoutTitle() {
+  const workout = plan(selectedDate);
+  const title = $("dayTitle").value.trim();
+
+  workout.title = title || workout.type || "Workout";
+
+  save();
+}
+
+$("dayTitle").addEventListener("change", saveWorkoutTitle);
+$("dayTitle").addEventListener("blur", saveWorkoutTitle);
+
+$("workoutDate").addEventListener("change", () => {
+  saveWorkoutTitle();
+
+  if (!$("workoutDate").value) return;
+
+  selectedDate = $("workoutDate").value;
+  cancelExerciseEdit();
+  renderWorkouts();
+});
+
+
+$("exerciseForm").addEventListener("submit",e=>{
+  e.preventDefault();
+
+  const name = $("exerciseName").value.trim();
+  const reps = $("exerciseReps").value.trim();
+  const sets = Number($("exerciseSets").value);
+  const editingId = $("editExerciseId").value;
+
+  if (!name || !reps || !Number.isInteger(sets) || sets < 1 || sets > 30) {
+    alert("Please enter an exercise name, reps or duration, and 1–30 sets.");
+    return;
+  }
+
+  const workout = plan(selectedDate);
+  const item = {name,reps,sets};
+
+  /* Save new exercise names to the reusable library.
+     Do not overwrite existing library defaults. */
+  const library = getExerciseLibrary();
+  const exists = library.some(x=>x.name.toLowerCase()===name.toLowerCase());
+
+  if (!exists) {
+    library.push({name,reps,sets});
+    saveExerciseLibrary(library);
+  }
+
+  /* Add/update only the selected date's workout. */
+  if (editingId) {
+    const existing = workout.items.find(x=>x.id===editingId);
+    if (existing) Object.assign(existing,item);
+  } else {
+    workout.items.push({id:makeId(),...item});
+  }
+
+  if (save()) {
+    cancelExerciseEdit();
+    renderAll();
+    showPage("workouts");
+  }
+});
+
+function editExercise(id) {
+  const workout = plan(selectedDate);
+  const exercise = workout.items.find(x=>x.id===id);
+  if (!exercise) return;
+
+  $("editExerciseId").value = id;
+  $("exerciseName").value = exercise.name;
+  $("exerciseReps").value = exercise.reps;
+  $("exerciseSets").value = exercise.sets;
+  $("savedExercise").value = "";
+
+  $("exerciseFormTitle").textContent = "Edit exercise";
+  $("saveExerciseBtn").textContent = "Save changes";
+  $("cancelEdit").hidden = false;
+  $("exerciseForm").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function cancelExerciseEdit() {
+  $("exerciseForm").reset();
+  $("exerciseSets").value = 3;
+  $("editExerciseId").value = "";
+  $("savedExercise").value = "";
+  $("exerciseFormTitle").textContent = "Add an exercise";
+  $("saveExerciseBtn").textContent = "+ Add exercise";
+  $("cancelEdit").hidden = true;
+}
+
+function deleteExercise(id) {
+  const workout = plan(selectedDate);
+  const exercise = workout.items.find(x=>x.id===id);
+  if (!exercise || !confirm(`Delete ${exercise.name} from this date's workout?`)) return;
+
+  workout.items = workout.items.filter(x=>x.id!==id);
+  delete ensureLog(selectedDate).checks[id];
+
+  if (save()) renderAll();
+}
+
+function resetDay() {
+  if (!confirm("Uncheck all exercises for this date?")) return;
+  ensureLog(selectedDate).checks = {};
+  save();
+  renderAll();
+}
+
+function renderCalories() {
+  const total = calorieTotal(selectedDate);
+  const goal = calorieGoal();
+  const meals = mealsFor(selectedDate);
+
+  $("calRemaining").textContent = Math.max(0,goal-total).toLocaleString();
+  $("calSummary").textContent = `${total.toLocaleString()} kcal consumed`;
+  $("calTargetText").textContent = goal.toLocaleString();
+  $("calBar").style.width = Math.min(100,total/goal*100)+"%";
+  $("mealTotal").textContent = `${total.toLocaleString()} kcal`;
+
+  $("mealList").innerHTML = meals.length
+    ? meals.map(m=>`
+      <div class="meal">
+        <div style="flex:1;min-width:0">
+          <strong>${escapeHTML(m.name)}</strong>
+          <div class="small">${escapeHTML(m.type)}</div>
+        </div>
+        <strong>${Number(m.calories).toLocaleString()} kcal</strong>
+        <button type="button" class="btn danger smallbtn" data-meal-delete="${m.id}">✕</button>
+      </div>`).join("")
+    : `<div class="empty">No meals logged for this date yet.</div>`;
+
+  document.querySelectorAll("[data-meal-delete]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      if (!confirm("Delete this meal?")) return;
+      state.meals[selectedDate] = mealsFor(selectedDate)
+        .filter(m=>m.id!==button.dataset.mealDelete);
+      save();
+      renderAll();
+    });
+  });
+}
+
+$("mealForm").addEventListener("submit",e=>{
+  e.preventDefault();
+
+  const name = $("mealName").value.trim();
+  const calories = Number($("mealCalories").value);
+  if (!name || !Number.isFinite(calories) || calories < 0) return;
+
+  if (!state.meals[selectedDate]) state.meals[selectedDate] = [];
+  state.meals[selectedDate].push({
+    id:makeId(),
+    name,
+    calories,
+    type:$("mealType").value
+  });
+
+  if (save()) {
+    $("mealForm").reset();
+    renderAll();
+  }
+});
+
+function renderProgress() {
+  const [year,month] = calendarMonth.split("-").map(Number);
+  const first = new Date(year,month-1,1);
+  const last = new Date(year,month,0);
+
+  const options = [];
+  for (let delta=-12;delta<=12;delta++) {
+    const d = new Date(new Date().getFullYear(),new Date().getMonth()+delta,1);
+    const value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+    options.push({
+      value,
+      label:d.toLocaleDateString(undefined,{month:"long",year:"numeric"})
+    });
+  }
+
+  $("calendarMonth").innerHTML = options.map(o=>
+    `<option value="${o.value}" ${o.value===calendarMonth ? "selected" : ""}>${o.label}</option>`
+  ).join("");
+
+  let cells = "";
+  for (let i=0;i<first.getDay();i++) cells += "<div></div>";
+
+  for (let day=1;day<=last.getDate();day++) {
+    const date = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    cells += `<button type="button"
+      class="calcell ${isComplete(date) ? "done" : ""} ${date===localDate() ? "today" : ""}"
+      data-calendar-date="${date}"
+      style="width:100%;cursor:pointer;font:inherit;color:inherit">
+      ${day}<span class="mark">${isComplete(date) ? "✓" : ""}</span>
+    </button>`;
+  }
+
+  $("monthCalendar").innerHTML = cells;
+
+  document.querySelectorAll("[data-calendar-date]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      selectedDate = button.dataset.calendarDate;
+      showPage("workouts");
+    });
+  });
+
+  const today = localDate();
+  const start = shiftDate(today,-6);
+  $("weeklyRange").textContent = `${formatDate(start)} – ${formatDate(today)}`;
+
+  let completedDays=0,exerciseCount=0,mealCount=0,monthlyDays=0,monthlyExercises=0;
+  let details="";
+
+  for (let i=6;i>=0;i--) {
+    const date = shiftDate(today,-i);
+    const done = completedCount(date);
+    const total = plan(date).items.length;
+
+    if (isComplete(date)) completedDays++;
+    exerciseCount += done;
+    mealCount += mealsFor(date).length;
+
+    details += `<div class="row" style="padding:9px 0;border-bottom:1px solid var(--line)">
+      <div>
+        <strong>${formatDate(date,{weekday:"short",month:"short",day:"numeric"})}</strong>
+        <div class="small">${escapeHTML(plan(date).title)}</div>
+      </div>
+      <span class="pill">${done}/${total} exercises</span>
+    </div>`;
+  }
+
+  for (let day=1;day<=last.getDate();day++) {
+    const date = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    if (isComplete(date)) monthlyDays++;
+    monthlyExercises += completedCount(date);
+  }
+
+  $("weeklyDays").textContent = completedDays;
+  $("weeklyExercises").textContent = exerciseCount;
+  $("weeklyMeals").textContent = mealCount;
+  $("weeklyDetails").innerHTML = details;
+  $("monthlyDays").textContent = monthlyDays;
+  $("monthlyExercises").textContent = monthlyExercises;
+}
+
+$("calendarMonth").addEventListener("change",()=>{
+  calendarMonth = $("calendarMonth").value;
+  renderProgress();
+});
+
+function renderProfile() {
+  $("profileName").value = state.profile.name || "";
+  $("profileAge").value = state.profile.age || "";
+  $("profileHeight").value = state.profile.height || "";
+  $("profileWeight").value = state.profile.weight || "";
+  $("profileGoal").value = state.profile.goal || 2000;
+}
+
+$("profilePhoto").addEventListener("change",e=>{
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select an image file.");
+    return;
+  }
+
+  if (file.size > 700000) {
+    alert("Please choose an image smaller than 700 KB.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = ()=>{photoCandidate = reader.result;};
+  reader.readAsDataURL(file);
+});
+
+$("profileForm").addEventListener("submit",e=>{
+  e.preventDefault();
+
+  state.profile.name = $("profileName").value.trim();
+  state.profile.age = $("profileAge").value;
+  state.profile.height = $("profileHeight").value;
+  state.profile.weight = $("profileWeight").value;
+  state.profile.goal = Math.max(1,Number($("profileGoal").value)||2000);
+
+  if (photoCandidate) {
+    state.profile.photo = photoCandidate;
+    photoCandidate = null;
+  }
+
+  if (save()) {
+    renderAll();
+    alert("Your profile has been saved.");
+  }
+});
+
+function renderAll() {
+  renderHome();
+  renderWorkouts();
+  renderCalories();
+  renderProgress();
+}
+
+function exportData() {
+  const blob = new Blob([
+    JSON.stringify({
+      exportedAt:new Date().toISOString(),
+      app:"GLOW",
+      data:state,
+      exerciseLibrary:getExerciseLibrary()
+    },null,2)
+  ],{type:"application/json"});
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `glow-backup-${localDate()}.json`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function clearAllData() {
+  if (!confirm("This will permanently delete all GLOW records in this browser. Export a backup first if needed. Continue?")) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(LIBRARY_KEY);
+  state = defaultState();
+  selectedDate = localDate();
+
+  save();
+  renderAll();
+  renderProfile();
+  showPage("home");
+}
+
+$("todayLabel").textContent = localDate();
+renderAll();
+
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js")
+      .catch(err=>console.warn("Offline setup unavailable",err));
+  });
+}
+</script>
+
+</body>
+</html>
